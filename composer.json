@@ -1,13 +1,18 @@
 {
-    "name": "mleko/events",
-    "description": "Event library",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Daniel Król",
-            "email": "daniel@krol.me"
-        }
-    ],
-    "require": {}
+  "name": "mleko/events",
+  "description": "Event library",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Król",
+      "email": "daniel@krol.me"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Mleko\\Events\\": "lib/"
+    }
+  },
+  "require": {}
 }
