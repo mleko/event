@@ -4,4 +4,4 @@
 /README.md          export-ignore
 /phpunit.xml        export-ignore
 /.travis.yml        export-ignore
-/.scruntizer.yml    export-ignore
+/.scrutinizer.yml    export-ignore
