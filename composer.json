@@ -14,5 +14,13 @@
       "Mleko\\Events\\": "lib/"
     }
   },
-  "require": {}
+  "autoload-dev": {
+    "psr-4": {
+      "Mleko\\Events\\Tests\\": "tests/"
+    }
+  },
+  "require": {},
+  "require-dev": {
+    "phpunit/phpunit": "^5.5"
+  }
 }
