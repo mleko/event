@@ -1,0 +1,13 @@
+{
+    "name": "mleko/events",
+    "description": "Event library",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Król",
+            "email": "daniel@krol.me"
+        }
+    ],
+    "require": {}
+}
