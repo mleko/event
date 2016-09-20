@@ -1,10 +1,10 @@
 <?php
 /**
- * @package events
+ * @package event
  */
 
 
-namespace Mleko\Events;
+namespace Mleko\Event;
 
 
 interface Listener

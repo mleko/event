@@ -1,13 +1,13 @@
 <?php
 /**
- * @package events
+ * @package event
  */
 
 
-namespace Mleko\Events\EventNameExtractor;
+namespace Mleko\Event\EventNameExtractor;
 
 
-class ClassNameExtractor implements \Mleko\Events\EventNameExtractor
+class ClassNameExtractor implements \Mleko\Event\EventNameExtractor
 {
 
     /**

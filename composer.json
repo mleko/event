@@ -1,5 +1,5 @@
 {
-  "name": "mleko/events",
+  "name": "mleko/event",
   "description": "Event library",
   "type": "library",
   "license": "MIT",
@@ -11,12 +11,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "Mleko\\Events\\": "lib/"
+      "Mleko\\Event\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Mleko\\Events\\Tests\\": "tests/"
+      "Mleko\\Event\\Tests\\": "tests/"
     }
   },
   "require-dev": {

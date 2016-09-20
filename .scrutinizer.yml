@@ -1,5 +1,5 @@
 filter:
-    paths: [lib/*]
+    paths: [src/*]
 tools:
     php_sim: true
     php_pdepend: true
