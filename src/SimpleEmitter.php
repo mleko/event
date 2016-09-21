@@ -32,8 +32,7 @@ class SimpleEmitter implements MutableEmitter
     public function emit($event)
     {
         $eventName = $this->extractEventName($event);
-        /** @var Listener[] $eventListeners */
-        $eventListeners = array_key_exists($eventName, $this->listeners) ? $this->listeners[$eventName] : [];
+        $eventListeners = $this->getEventListeners($eventName);
         foreach ($eventListeners as $listener) {
             $listener->handle($event);
         }
@@ -57,7 +56,7 @@ class SimpleEmitter implements MutableEmitter
      */
     public function removeListener($eventName, Listener $listener)
     {
-        $eventListeners = array_key_exists($eventName, $this->listeners) ? $this->listeners[$eventName] : [];
+        $eventListeners = $this->getEventListeners($eventName);
         foreach ($eventListeners as $key => $eventListener) {
             if ($listener === $eventListener) {
                 unset($this->listeners[$eventName][$key]);
@@ -74,5 +73,15 @@ class SimpleEmitter implements MutableEmitter
     private function extractEventName($event)
     {
         return $this->eventNameExtractor->extract($event);
+    }
+
+    /**
+     * @param $eventName
+     * @return Listener[]
+     */
+    private function getEventListeners($eventName)
+    {
+        $eventListeners = array_key_exists($eventName, $this->listeners) ? $this->listeners[$eventName] : [];
+        return $eventListeners;
     }
 }
