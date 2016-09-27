@@ -33,8 +33,9 @@ class SimpleEmitter implements MutableEmitter
     {
         $eventName = $this->extractEventName($event);
         $eventListeners = $this->getEventListeners($eventName);
+        $eventMeta = new Meta($event, $eventName, $eventName, $this);
         foreach ($eventListeners as $listener) {
-            $listener->handle($event);
+            $listener->handle($event, $eventMeta);
         }
     }
 
@@ -45,6 +46,9 @@ class SimpleEmitter implements MutableEmitter
      */
     public function addListener($eventName, Listener $listener)
     {
+        if (!isset($this->listeners[$eventName])) {
+            $this->listeners[$eventName] = [];
+        }
         $this->listeners[$eventName][] = $listener;
         return new Subscription($eventName, $listener, $this);
     }
