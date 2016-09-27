@@ -33,7 +33,7 @@ class EventTrap implements \Mleko\Event\Listener
      */
     public function handle($event, \Mleko\Event\Meta $meta)
     {
-        if ($this->oneTime && $this->trappedEvents) {
+        if ($this->oneTime && !empty($this->trappedEvents)) {
             return;
         }
         $this->trappedEvents[] = $event;
