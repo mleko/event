@@ -80,7 +80,7 @@ class SimpleEmitter implements MutableEmitter
     }
 
     /**
-     * @param $eventName
+     * @param string $eventName
      * @return Listener[]
      */
     private function getEventListeners($eventName)

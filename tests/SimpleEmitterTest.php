@@ -21,7 +21,15 @@ class SimpleEmitterTest extends \PHPUnit\Framework\TestCase
         $this->assertNotNull($subscription);
 
         $eventToEmit = new \ArrayObject();
-        $listener->expects($this->once())->method('handle')->with($this->equalTo($eventToEmit));
+        $listener->expects($this->once())
+            ->method('handle')
+            ->with($this->equalTo($eventToEmit), $this->callback(function (\Mleko\Event\Meta $meta) use ($emitter, $eventToEmit) {
+                $this->assertSame($emitter, $meta->getEmitter());
+                $this->assertEquals('ArrayObject', $meta->getEventName());
+                $this->assertEquals('ArrayObject', $meta->getMatchedName());
+                $this->assertEquals($eventToEmit, $meta->getEvent());
+                return true;
+            }));
 
         $emitter->emit($eventToEmit);
 
