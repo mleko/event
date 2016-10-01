@@ -1,6 +1,7 @@
 {
   "name": "mleko/event",
   "description": "Event library",
+  "keyword": ["event", "emitter", "listener"],
   "type": "library",
   "license": "MIT",
   "authors": [
