@@ -19,18 +19,14 @@ class SimpleEmitter implements MutableEmitter
     /**
      * SimpleEventBus constructor.
      * @param EventNameExtractor $eventNameExtractor
-     * @param Listener[]|Listener[][] $listeners
+     * @param Listener[][] $listeners
      */
     public function __construct(EventNameExtractor $eventNameExtractor, array $listeners = [])
     {
         $this->eventNameExtractor = $eventNameExtractor;
-        foreach ($listeners as $eventName => $listenerDef) {
-            if (is_array($listenerDef)) {
-                foreach ($listenerDef as $listener) {
-                    $this->addListener($eventName, $listener);
-                }
-            } else {
-                $this->addListener($eventName, $listenerDef);
+        foreach ($listeners as $eventName => $eventListeners) {
+            foreach ($eventListeners as $listener) {
+                $this->addListener($eventName, $listener);
             }
         }
     }

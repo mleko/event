@@ -58,4 +58,20 @@ class SimpleEmitterTest extends \PHPUnit\Framework\TestCase
 
         $emitter->emit($eventToEmit);
     }
+
+    public function testConstructor()
+    {
+        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Event\Listener $listener */
+        $listener = $this->getMockBuilder(\Mleko\Event\Listener::class)->getMockForAbstractClass();
+
+        $emitter = new \Mleko\Event\SimpleEmitter(
+            new \Mleko\Event\EventNameExtractor\ClassNameExtractor(),
+            [
+                'ArrayObject' => [$listener],
+                'Exception' => [$listener]
+            ]
+        );
+
+        $this->assertTrue($emitter->removeListener('Exception', $listener));
+    }
 }
