@@ -44,6 +44,7 @@ class SimpleEmitterTest extends \PHPUnit\Framework\TestCase
     public function testSubscription()
     {
         $emitter = new \Mleko\Event\SimpleEmitter(new \Mleko\Event\EventNameExtractor\ClassNameExtractor());
+
         /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Event\Listener $listener */
         $listener = $this->getMockBuilder(\Mleko\Event\Listener::class)->getMockForAbstractClass();
         $subscription = $emitter->addListener('ArrayObject', $listener);

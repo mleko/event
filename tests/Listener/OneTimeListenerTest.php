@@ -9,7 +9,7 @@ namespace Mleko\Event\Tests\Listener;
 
 class OneTimeListenerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testEventTrap()
+    public function testOneTimeListener()
     {
         $emitter = new \Mleko\Event\SimpleEmitter(new \Mleko\Event\EventNameExtractor\ClassNameExtractor());
 

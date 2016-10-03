@@ -52,9 +52,6 @@ class SimpleEmitter implements MutableEmitter
      */
     public function addListener($eventName, Listener $listener)
     {
-        if (!isset($this->listeners[$eventName])) {
-            $this->listeners[$eventName] = [];
-        }
         $this->listeners[$eventName][] = $listener;
         return new Subscription($eventName, $listener, $this);
     }
