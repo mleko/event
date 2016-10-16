@@ -1,19 +1,19 @@
 <?php
 /**
- * @package event
+ * @package narrator
  */
 
 
-namespace Mleko\Event\Tests;
+namespace Mleko\Narrator\Tests;
 
 
 class SimpleEmitterTest extends \PHPUnit\Framework\TestCase
 {
     public function testEmitterMutation()
     {
-        $emitter = new \Mleko\Event\SimpleEmitter(new \Mleko\Event\EventNameExtractor\ClassNameExtractor());
-        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Event\Listener $listener */
-        $listener = $this->getMockBuilder(\Mleko\Event\Listener::class)->getMockForAbstractClass();
+        $emitter = new \Mleko\Narrator\SimpleEmitter(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
+        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Narrator\Listener $listener */
+        $listener = $this->getMockBuilder(\Mleko\Narrator\Listener::class)->getMockForAbstractClass();
 
         $this->assertFalse($emitter->removeListener('ArrayObject', $listener));
 
@@ -23,7 +23,7 @@ class SimpleEmitterTest extends \PHPUnit\Framework\TestCase
         $eventToEmit = new \ArrayObject();
         $listener->expects($this->once())
             ->method('handle')
-            ->with($this->equalTo($eventToEmit), $this->callback(function (\Mleko\Event\Meta $meta) use ($emitter, $eventToEmit) {
+            ->with($this->equalTo($eventToEmit), $this->callback(function (\Mleko\Narrator\Meta $meta) use ($emitter, $eventToEmit) {
                 $this->assertSame($emitter, $meta->getEmitter());
                 $this->assertEquals('ArrayObject', $meta->getEventName());
                 $this->assertEquals('ArrayObject', $meta->getMatchedName());
@@ -43,10 +43,10 @@ class SimpleEmitterTest extends \PHPUnit\Framework\TestCase
 
     public function testSubscription()
     {
-        $emitter = new \Mleko\Event\SimpleEmitter(new \Mleko\Event\EventNameExtractor\ClassNameExtractor());
+        $emitter = new \Mleko\Narrator\SimpleEmitter(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Event\Listener $listener */
-        $listener = $this->getMockBuilder(\Mleko\Event\Listener::class)->getMockForAbstractClass();
+        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Narrator\Listener $listener */
+        $listener = $this->getMockBuilder(\Mleko\Narrator\Listener::class)->getMockForAbstractClass();
         $subscription = $emitter->addListener('ArrayObject', $listener);
         $this->assertNotNull($subscription);
 
@@ -62,11 +62,11 @@ class SimpleEmitterTest extends \PHPUnit\Framework\TestCase
 
     public function testConstructor()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Event\Listener $listener */
-        $listener = $this->getMockBuilder(\Mleko\Event\Listener::class)->getMockForAbstractClass();
+        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Narrator\Listener $listener */
+        $listener = $this->getMockBuilder(\Mleko\Narrator\Listener::class)->getMockForAbstractClass();
 
-        $emitter = new \Mleko\Event\SimpleEmitter(
-            new \Mleko\Event\EventNameExtractor\ClassNameExtractor(),
+        $emitter = new \Mleko\Narrator\SimpleEmitter(
+            new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor(),
             [
                 'ArrayObject' => [$listener],
                 'Exception' => [$listener]

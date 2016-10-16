@@ -1,13 +1,13 @@
 <?php
 /**
- * @package event
+ * @package narrator
  */
 
 
-namespace Mleko\Event\Listener;
+namespace Mleko\Narrator\Listener;
 
 
-class CallableListener implements \Mleko\Event\Listener
+class CallableListener implements \Mleko\Narrator\Listener
 {
     /** @var callable */
     private $callable;
@@ -23,10 +23,10 @@ class CallableListener implements \Mleko\Event\Listener
 
     /**
      * @param object $event
-     * @param \Mleko\Event\Meta $meta
+     * @param \Mleko\Narrator\Meta $meta
      * @return mixed
      */
-    public function handle($event, \Mleko\Event\Meta $meta)
+    public function handle($event, \Mleko\Narrator\Meta $meta)
     {
         return call_user_func_array($this->callable, [$event, $meta]);
     }

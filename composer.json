@@ -1,5 +1,5 @@
 {
-  "name": "mleko/event",
+  "name": "narrator/narrator",
   "description": "Event library",
   "keyword": [
     "event",
@@ -17,12 +17,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "Mleko\\Event\\": "src/"
+      "Mleko\\Narrator\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Mleko\\Event\\Tests\\": "tests/"
+      "Mleko\\Narrator\\Tests\\": "tests/"
     }
   },
   "require": {

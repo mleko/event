@@ -1,22 +1,22 @@
 <?php
 /**
- * @package event
+ * @package narrator
  */
 
 
-namespace Mleko\Event\Tests\Listener;
+namespace Mleko\Narrator\Tests\Listener;
 
 
 class OneTimeListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testOneTimeListener()
     {
-        $emitter = new \Mleko\Event\SimpleEmitter(new \Mleko\Event\EventNameExtractor\ClassNameExtractor());
+        $emitter = new \Mleko\Narrator\SimpleEmitter(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Event\Listener $listener */
-        $listener = $this->getMockBuilder(\Mleko\Event\Listener::class)->getMockForAbstractClass();
+        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Narrator\Listener $listener */
+        $listener = $this->getMockBuilder(\Mleko\Narrator\Listener::class)->getMockForAbstractClass();
 
-        $subscription = $emitter->addListener('ArrayObject', new \Mleko\Event\Listener\OneTimeListener($listener));
+        $subscription = $emitter->addListener('ArrayObject', new \Mleko\Narrator\Listener\OneTimeListener($listener));
         $this->assertNotNull($subscription);
 
         $event = new \ArrayObject();

@@ -1,13 +1,13 @@
 <?php
 /**
- * @package event
+ * @package narrator
  */
 
 
-namespace Mleko\Event\Listener;
+namespace Mleko\Narrator\Listener;
 
 
-class EventTrap implements \Mleko\Event\Listener
+class EventTrap implements \Mleko\Narrator\Listener
 {
 
     /** @var object[] */
@@ -29,9 +29,9 @@ class EventTrap implements \Mleko\Event\Listener
 
     /**
      * @param object $event
-     * @param \Mleko\Event\Meta $meta
+     * @param \Mleko\Narrator\Meta $meta
      */
-    public function handle($event, \Mleko\Event\Meta $meta)
+    public function handle($event, \Mleko\Narrator\Meta $meta)
     {
         if ($this->oneTime && !empty($this->trappedEvents)) {
             return;

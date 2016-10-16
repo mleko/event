@@ -1,10 +1,10 @@
 <?php
 /**
- * @package event
+ * @package narrator
  */
 
 
-namespace Mleko\Event;
+namespace Mleko\Narrator;
 
 
 interface Emitter

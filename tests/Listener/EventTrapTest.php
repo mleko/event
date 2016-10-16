@@ -1,19 +1,19 @@
 <?php
 /**
- * @package event
+ * @package narrator
  */
 
 
-namespace Mleko\Event\Tests\Listener;
+namespace Mleko\Narrator\Tests\Listener;
 
 
 class EventTrapTest extends \PHPUnit_Framework_TestCase
 {
     public function testMultipleEvents()
     {
-        $emitter = new \Mleko\Event\SimpleEmitter(new \Mleko\Event\EventNameExtractor\ClassNameExtractor());
+        $emitter = new \Mleko\Narrator\SimpleEmitter(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
 
-        $emitter->addListener('ArrayObject', $trap = new \Mleko\Event\Listener\EventTrap(false));
+        $emitter->addListener('ArrayObject', $trap = new \Mleko\Narrator\Listener\EventTrap(false));
 
         $emitter->emit($event1 = new \ArrayObject());
         $emitter->emit($event2 = new \ArrayObject());
@@ -25,9 +25,9 @@ class EventTrapTest extends \PHPUnit_Framework_TestCase
 
     public function testOneTimeTrap()
     {
-        $emitter = new \Mleko\Event\SimpleEmitter(new \Mleko\Event\EventNameExtractor\ClassNameExtractor());
+        $emitter = new \Mleko\Narrator\SimpleEmitter(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
 
-        $emitter->addListener('ArrayObject', $trap = new \Mleko\Event\Listener\EventTrap());
+        $emitter->addListener('ArrayObject', $trap = new \Mleko\Narrator\Listener\EventTrap());
 
         $emitter->emit($event1 = new \ArrayObject());
         $emitter->emit($event2 = new \ArrayObject());

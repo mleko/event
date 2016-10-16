@@ -1,15 +1,15 @@
 <?php
 /**
- * @package event
+ * @package narrator
  */
 
 
-namespace Mleko\Event\Listener;
+namespace Mleko\Narrator\Listener;
 
 
-class OneTimeListener implements \Mleko\Event\Listener
+class OneTimeListener implements \Mleko\Narrator\Listener
 {
-    /** @var \Mleko\Event\Listener */
+    /** @var \Mleko\Narrator\Listener */
     private $wrappedListener;
 
     /** @var bool */
@@ -17,14 +17,14 @@ class OneTimeListener implements \Mleko\Event\Listener
 
     /**
      * OneTimeListener constructor.
-     * @param \Mleko\Event\Listener $listener
+     * @param \Mleko\Narrator\Listener $listener
      */
-    public function __construct(\Mleko\Event\Listener $listener)
+    public function __construct(\Mleko\Narrator\Listener $listener)
     {
         $this->wrappedListener = $listener;
     }
 
-    public function handle($event, \Mleko\Event\Meta $meta)
+    public function handle($event, \Mleko\Narrator\Meta $meta)
     {
         if (!$this->fired) {
             $this->fired = true;
@@ -33,10 +33,10 @@ class OneTimeListener implements \Mleko\Event\Listener
         }
     }
 
-    private function unsubscribe(\Mleko\Event\Meta $meta)
+    private function unsubscribe(\Mleko\Narrator\Meta $meta)
     {
         $emitter = $meta->getEmitter();
-        if ($emitter instanceof \Mleko\Event\MutableEmitter) {
+        if ($emitter instanceof \Mleko\Narrator\MutableEmitter) {
             $emitter->removeListener($meta->getMatchedName(), $this);
         }
     }
