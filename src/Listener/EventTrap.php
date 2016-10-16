@@ -33,8 +33,11 @@ class EventTrap implements \Mleko\Narrator\Listener
      */
     public function handle($event, \Mleko\Narrator\Meta $meta)
     {
-        if ($this->oneTime && !empty($this->trappedEvents)) {
-            return;
+        if ($this->oneTime) {
+            $this->close($meta);
+            if (!empty($this->trappedEvents)) {
+                return;
+            }
         }
         $this->trappedEvents[] = $event;
     }
@@ -53,6 +56,15 @@ class EventTrap implements \Mleko\Narrator\Listener
     public function getFirstEvent()
     {
         return isset($this->trappedEvents[0]) ? $this->trappedEvents[0] : null;
+    }
+
+    /**
+     * @param \Mleko\Narrator\Meta $meta
+     * @return bool
+     */
+    public function close(\Mleko\Narrator\Meta $meta)
+    {
+        return $meta->getEventSource()->unsubscribe($meta->getMatchedName(), $this);
     }
 
 }
