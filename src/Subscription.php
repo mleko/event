@@ -13,20 +13,20 @@ class Subscription
     private $eventName;
     /** @var Listener */
     private $listener;
-    /** @var MutableEmitter */
-    private $emitter;
+    /** @var EventSource */
+    private $eventSource;
 
     /**
      * Subscription constructor.
      * @param string $eventName
      * @param Listener $listener
-     * @param MutableEmitter $emitter
+     * @param EventSource $emitter
      */
-    public function __construct($eventName, Listener $listener, MutableEmitter $emitter)
+    public function __construct($eventName, Listener $listener, EventSource $emitter)
     {
         $this->eventName = $eventName;
         $this->listener = $listener;
-        $this->emitter = $emitter;
+        $this->eventSource = $emitter;
     }
 
     /**
@@ -34,7 +34,7 @@ class Subscription
      */
     public function unsubscribe()
     {
-        return $this->emitter->removeListener($this->eventName, $this->listener);
+        return $this->eventSource->unsubscribe($this->eventName, $this->listener);
     }
 
 }

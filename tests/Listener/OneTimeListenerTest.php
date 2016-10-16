@@ -16,7 +16,7 @@ class OneTimeListenerTest extends \PHPUnit_Framework_TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Narrator\Listener $listener */
         $listener = $this->getMockBuilder(\Mleko\Narrator\Listener::class)->getMockForAbstractClass();
 
-        $subscription = $emitter->addListener('ArrayObject', new \Mleko\Narrator\Listener\OneTimeListener($listener));
+        $subscription = $emitter->subscribe('ArrayObject', new \Mleko\Narrator\Listener\OneTimeListener($listener));
         $this->assertNotNull($subscription);
 
         $event = new \ArrayObject();

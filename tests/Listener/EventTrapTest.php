@@ -13,7 +13,7 @@ class EventTrapTest extends \PHPUnit_Framework_TestCase
     {
         $emitter = new \Mleko\Narrator\SimpleEmitter(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
 
-        $emitter->addListener('ArrayObject', $trap = new \Mleko\Narrator\Listener\EventTrap(false));
+        $emitter->subscribe('ArrayObject', $trap = new \Mleko\Narrator\Listener\EventTrap(false));
 
         $emitter->emit($event1 = new \ArrayObject());
         $emitter->emit($event2 = new \ArrayObject());
@@ -27,7 +27,7 @@ class EventTrapTest extends \PHPUnit_Framework_TestCase
     {
         $emitter = new \Mleko\Narrator\SimpleEmitter(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
 
-        $emitter->addListener('ArrayObject', $trap = new \Mleko\Narrator\Listener\EventTrap());
+        $emitter->subscribe('ArrayObject', $trap = new \Mleko\Narrator\Listener\EventTrap());
 
         $emitter->emit($event1 = new \ArrayObject());
         $emitter->emit($event2 = new \ArrayObject());

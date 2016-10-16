@@ -16,7 +16,7 @@ class CallableListenerTest extends \PHPUnit_Framework_TestCase
         $eventToEmit = new \ArrayObject();
 
         $called = false;
-        $emitter->addListener('ArrayObject', new \Mleko\Narrator\Listener\CallableListener(function ($event, \Mleko\Narrator\Meta $meta) use ($eventToEmit, &$called) {
+        $emitter->subscribe('ArrayObject', new \Mleko\Narrator\Listener\CallableListener(function ($event, \Mleko\Narrator\Meta $meta) use ($eventToEmit, &$called) {
             $this->assertSame($eventToEmit, $event);
             $called = true;
         }));
@@ -31,7 +31,7 @@ class CallableListenerTest extends \PHPUnit_Framework_TestCase
         $emitter = new \Mleko\Narrator\SimpleEmitter(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
 
         $mock = $this->getMockBuilder('stdClass')->setMethods(['method'])->getMock();
-        $emitter->addListener('ArrayObject', new \Mleko\Narrator\Listener\CallableListener([$mock, 'method']));
+        $emitter->subscribe('ArrayObject', new \Mleko\Narrator\Listener\CallableListener([$mock, 'method']));
 
         $eventToEmit = new \ArrayObject();
         $mock->expects($this->once())->method('method')->with($eventToEmit);

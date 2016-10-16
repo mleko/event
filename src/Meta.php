@@ -15,22 +15,22 @@ class Meta
     private $eventName;
     /** @var string */
     private $matchedName;
-    /** @var Emitter */
-    private $emitter;
+    /** @var EventSource */
+    private $eventSource;
 
     /**
      * Meta constructor.
      * @param object $event
      * @param string $eventName
      * @param string $matchedName
-     * @param Emitter $emitter
+     * @param EventSource $eventSource
      */
-    public function __construct($event, $eventName, $matchedName, Emitter $emitter)
+    public function __construct($event, $eventName, $matchedName, EventSource $eventSource)
     {
         $this->event = $event;
         $this->eventName = $eventName;
         $this->matchedName = $matchedName;
-        $this->emitter = $emitter;
+        $this->eventSource = $eventSource;
     }
 
     /**
@@ -58,11 +58,11 @@ class Meta
     }
 
     /**
-     * @return Emitter
+     * @return EventSource
      */
-    public function getEmitter()
+    public function getEventSource()
     {
-        return $this->emitter;
+        return $this->eventSource;
     }
 
     

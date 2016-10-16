@@ -7,7 +7,7 @@
 namespace Mleko\Narrator;
 
 
-class SimpleEmitter implements MutableEmitter
+class SimpleEmitter implements EventSource, EventEmitter
 {
 
     /** @var array */
@@ -26,7 +26,7 @@ class SimpleEmitter implements MutableEmitter
         $this->eventNameExtractor = $eventNameExtractor;
         foreach ($listeners as $eventName => $eventListeners) {
             foreach ($eventListeners as $listener) {
-                $this->addListener($eventName, $listener);
+                $this->subscribe($eventName, $listener);
             }
         }
     }
@@ -50,7 +50,7 @@ class SimpleEmitter implements MutableEmitter
      * @param Listener $listener
      * @return Subscription
      */
-    public function addListener($eventName, Listener $listener)
+    public function subscribe($eventName, Listener $listener)
     {
         $this->listeners[$eventName][] = $listener;
         return new Subscription($eventName, $listener, $this);
@@ -61,7 +61,7 @@ class SimpleEmitter implements MutableEmitter
      * @param Listener $listener
      * @return bool
      */
-    public function removeListener($eventName, Listener $listener)
+    public function unsubscribe($eventName, Listener $listener)
     {
         $eventListeners = $this->getEventListeners($eventName);
         foreach ($eventListeners as $key => $eventListener) {

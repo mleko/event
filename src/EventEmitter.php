@@ -7,7 +7,7 @@
 namespace Mleko\Narrator;
 
 
-interface Emitter
+interface EventEmitter
 {
     /**
      * Emit event to listeners

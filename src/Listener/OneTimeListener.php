@@ -28,18 +28,9 @@ class OneTimeListener implements \Mleko\Narrator\Listener
     {
         if (!$this->fired) {
             $this->fired = true;
-            $this->unsubscribe($meta);
+            $meta->getEventSource()->unsubscribe($meta->getMatchedName(), $this);
             $this->wrappedListener->handle($event, $meta);
         }
     }
-
-    private function unsubscribe(\Mleko\Narrator\Meta $meta)
-    {
-        $emitter = $meta->getEmitter();
-        if ($emitter instanceof \Mleko\Narrator\MutableEmitter) {
-            $emitter->removeListener($meta->getMatchedName(), $this);
-        }
-    }
-
 
 }

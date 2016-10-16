@@ -15,16 +15,16 @@ class SimpleEmitterTest extends \PHPUnit\Framework\TestCase
         /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Narrator\Listener $listener */
         $listener = $this->getMockBuilder(\Mleko\Narrator\Listener::class)->getMockForAbstractClass();
 
-        $this->assertFalse($emitter->removeListener('ArrayObject', $listener));
+        $this->assertFalse($emitter->unsubscribe('ArrayObject', $listener));
 
-        $subscription = $emitter->addListener('ArrayObject', $listener);
+        $subscription = $emitter->subscribe('ArrayObject', $listener);
         $this->assertNotNull($subscription);
 
         $eventToEmit = new \ArrayObject();
         $listener->expects($this->once())
             ->method('handle')
             ->with($this->equalTo($eventToEmit), $this->callback(function (\Mleko\Narrator\Meta $meta) use ($emitter, $eventToEmit) {
-                $this->assertSame($emitter, $meta->getEmitter());
+                $this->assertSame($emitter, $meta->getEventSource());
                 $this->assertEquals('ArrayObject', $meta->getEventName());
                 $this->assertEquals('ArrayObject', $meta->getMatchedName());
                 $this->assertEquals($eventToEmit, $meta->getEvent());
@@ -33,12 +33,12 @@ class SimpleEmitterTest extends \PHPUnit\Framework\TestCase
 
         $emitter->emit($eventToEmit);
 
-        $this->assertFalse($emitter->removeListener('Iterator', $listener));
-        $this->assertTrue($emitter->removeListener('ArrayObject', $listener));
+        $this->assertFalse($emitter->unsubscribe('Iterator', $listener));
+        $this->assertTrue($emitter->unsubscribe('ArrayObject', $listener));
 
         $emitter->emit($eventToEmit);
 
-        $this->assertFalse($emitter->removeListener('ArrayObject', $listener));
+        $this->assertFalse($emitter->unsubscribe('ArrayObject', $listener));
     }
 
     public function testSubscription()
@@ -47,7 +47,7 @@ class SimpleEmitterTest extends \PHPUnit\Framework\TestCase
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Narrator\Listener $listener */
         $listener = $this->getMockBuilder(\Mleko\Narrator\Listener::class)->getMockForAbstractClass();
-        $subscription = $emitter->addListener('ArrayObject', $listener);
+        $subscription = $emitter->subscribe('ArrayObject', $listener);
         $this->assertNotNull($subscription);
 
         $eventToEmit = new \ArrayObject();
@@ -73,6 +73,6 @@ class SimpleEmitterTest extends \PHPUnit\Framework\TestCase
             ]
         );
 
-        $this->assertTrue($emitter->removeListener('Exception', $listener));
+        $this->assertTrue($emitter->unsubscribe('Exception', $listener));
     }
 }
