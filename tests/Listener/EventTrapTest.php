@@ -36,4 +36,21 @@ class EventTrapTest extends \PHPUnit_Framework_TestCase
         $this->assertContains($event1, $trap->getTrappedEvents());
         $this->assertSame($event1, $trap->getFirstEvent());
     }
+
+    public function testOneTimeTrapReRegistered()
+    {
+        $emitter = new \Mleko\Narrator\SimpleEmitter(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
+
+        $emitter->subscribe('ArrayObject', $trap = new \Mleko\Narrator\Listener\EventTrap());
+        $emitter->subscribe('ArrayObject', $trap);
+
+        $emitter->emit($event1 = new \ArrayObject());
+        $emitter->emit($event2 = new \ArrayObject());
+
+        $this->assertEquals(1, count($trap->getTrappedEvents()));
+        $this->assertContains($event1, $trap->getTrappedEvents());
+        $this->assertSame($event1, $trap->getFirstEvent());
+
+        $this->assertFalse($emitter->unsubscribe('ArrayObject', $trap));
+    }
 }
