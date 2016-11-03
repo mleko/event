@@ -62,7 +62,7 @@ class EventTrap implements \Mleko\Narrator\Listener
      * @param \Mleko\Narrator\Meta $meta
      * @return bool
      */
-    public function close(\Mleko\Narrator\Meta $meta)
+    private function close(\Mleko\Narrator\Meta $meta)
     {
         return $meta->getEventSource()->unsubscribe($meta->getMatchedName(), $this);
     }
