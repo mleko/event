@@ -7,13 +7,17 @@
 namespace Mleko\Narrator\Tests\Listener;
 
 
+use Mleko\Narrator\BasicEventBus;
+use Mleko\Narrator\EventNameExtractor\ClassNameExtractor;
+use Mleko\Narrator\Listener\EventTrap;
+
 class EventTrapTest extends \PHPUnit_Framework_TestCase
 {
     public function testMultipleEvents()
     {
-        $eventBus = new \Mleko\Narrator\BasicEventBus(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
+        $eventBus = new BasicEventBus(new ClassNameExtractor());
 
-        $eventBus->subscribe('ArrayObject', $trap = new \Mleko\Narrator\Listener\EventTrap(false));
+        $eventBus->subscribe('ArrayObject', $trap = new EventTrap(false));
 
         $eventBus->emit($event1 = new \ArrayObject());
         $eventBus->emit($event2 = new \ArrayObject());
@@ -25,9 +29,9 @@ class EventTrapTest extends \PHPUnit_Framework_TestCase
 
     public function testOneTimeTrap()
     {
-        $eventBus = new \Mleko\Narrator\BasicEventBus(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
+        $eventBus = new BasicEventBus(new ClassNameExtractor());
 
-        $eventBus->subscribe('ArrayObject', $trap = new \Mleko\Narrator\Listener\EventTrap());
+        $eventBus->subscribe('ArrayObject', $trap = new EventTrap());
 
         $eventBus->emit($event1 = new \ArrayObject());
         $eventBus->emit($event2 = new \ArrayObject());
@@ -39,9 +43,9 @@ class EventTrapTest extends \PHPUnit_Framework_TestCase
 
     public function testOneTimeTrapReRegistered()
     {
-        $eventBus = new \Mleko\Narrator\BasicEventBus(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
+        $eventBus = new BasicEventBus(new ClassNameExtractor());
 
-        $eventBus->subscribe('ArrayObject', $trap = new \Mleko\Narrator\Listener\EventTrap());
+        $eventBus->subscribe('ArrayObject', $trap = new EventTrap());
         $eventBus->subscribe('ArrayObject', $trap);
 
         $eventBus->emit($event1 = new \ArrayObject());

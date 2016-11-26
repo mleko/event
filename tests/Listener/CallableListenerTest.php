@@ -7,16 +7,21 @@
 namespace Mleko\Narrator\Tests\Listener;
 
 
+use Mleko\Narrator\BasicEventBus;
+use Mleko\Narrator\EventNameExtractor\ClassNameExtractor;
+use Mleko\Narrator\Listener\CallableListener;
+use Mleko\Narrator\Meta;
+
 class CallableListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testClosure()
     {
-        $eventBus = new \Mleko\Narrator\BasicEventBus(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
+        $eventBus = new BasicEventBus(new ClassNameExtractor());
 
         $eventToEmit = new \ArrayObject();
 
         $called = false;
-        $eventBus->subscribe('ArrayObject', new \Mleko\Narrator\Listener\CallableListener(function ($event, \Mleko\Narrator\Meta $meta) use ($eventToEmit, &$called) {
+        $eventBus->subscribe('ArrayObject', new CallableListener(function ($event, Meta $meta) use ($eventToEmit, &$called) {
             $this->assertSame($eventToEmit, $event);
             $called = true;
         }));
@@ -28,10 +33,10 @@ class CallableListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testObjectMethod()
     {
-        $eventBus = new \Mleko\Narrator\BasicEventBus(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
+        $eventBus = new BasicEventBus(new ClassNameExtractor());
 
         $mock = $this->getMockBuilder('stdClass')->setMethods(['method'])->getMock();
-        $eventBus->subscribe('ArrayObject', new \Mleko\Narrator\Listener\CallableListener([$mock, 'method']));
+        $eventBus->subscribe('ArrayObject', new CallableListener([$mock, 'method']));
 
         $eventToEmit = new \ArrayObject();
         $mock->expects($this->once())->method('method')->with($eventToEmit);

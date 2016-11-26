@@ -7,13 +7,18 @@
 namespace Mleko\Narrator\Tests;
 
 
+use Mleko\Narrator\BasicEventBus;
+use Mleko\Narrator\EventNameExtractor\ClassNameExtractor;
+use Mleko\Narrator\Listener;
+use Mleko\Narrator\Meta;
+
 class BasicEventBusTest extends \PHPUnit\Framework\TestCase
 {
     public function testEmitterMutation()
     {
-        $eventBus = new \Mleko\Narrator\BasicEventBus(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
-        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Narrator\Listener $listener */
-        $listener = $this->getMockBuilder(\Mleko\Narrator\Listener::class)->getMockForAbstractClass();
+        $eventBus = new BasicEventBus(new ClassNameExtractor());
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Listener $listener */
+        $listener = $this->getMockBuilder(Listener::class)->getMockForAbstractClass();
 
         $this->assertFalse($eventBus->unsubscribe('ArrayObject', $listener));
 
@@ -23,7 +28,7 @@ class BasicEventBusTest extends \PHPUnit\Framework\TestCase
         $eventToEmit = new \ArrayObject();
         $listener->expects($this->once())
             ->method('handle')
-            ->with($this->equalTo($eventToEmit), $this->callback(function (\Mleko\Narrator\Meta $meta) use ($eventBus, $eventToEmit) {
+            ->with($this->equalTo($eventToEmit), $this->callback(function (Meta $meta) use ($eventBus, $eventToEmit) {
                 $this->assertSame($eventBus, $meta->getEventSource());
                 $this->assertEquals('ArrayObject', $meta->getEventName());
                 $this->assertEquals('ArrayObject', $meta->getMatchedName());
@@ -43,10 +48,10 @@ class BasicEventBusTest extends \PHPUnit\Framework\TestCase
 
     public function testSubscription()
     {
-        $eventBus = new \Mleko\Narrator\BasicEventBus(new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor());
+        $eventBus = new BasicEventBus(new ClassNameExtractor());
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Narrator\Listener $listener */
-        $listener = $this->getMockBuilder(\Mleko\Narrator\Listener::class)->getMockForAbstractClass();
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Listener $listener */
+        $listener = $this->getMockBuilder(Listener::class)->getMockForAbstractClass();
         $subscription = $eventBus->subscribe('ArrayObject', $listener);
         $this->assertNotNull($subscription);
 
@@ -62,11 +67,11 @@ class BasicEventBusTest extends \PHPUnit\Framework\TestCase
 
     public function testConstructor()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|\Mleko\Narrator\Listener $listener */
-        $listener = $this->getMockBuilder(\Mleko\Narrator\Listener::class)->getMockForAbstractClass();
+        /** @var \PHPUnit_Framework_MockObject_MockObject|Listener $listener */
+        $listener = $this->getMockBuilder(Listener::class)->getMockForAbstractClass();
 
-        $eventBus = new \Mleko\Narrator\BasicEventBus(
-            new \Mleko\Narrator\EventNameExtractor\ClassNameExtractor(),
+        $eventBus = new BasicEventBus(
+            new ClassNameExtractor(),
             [
                 'ArrayObject' => [$listener],
                 'Exception'   => [$listener]
