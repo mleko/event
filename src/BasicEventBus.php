@@ -7,7 +7,7 @@
 namespace Mleko\Narrator;
 
 
-class SimpleEmitter implements EventSource, EventEmitter
+class BasicEventBus implements EventBus
 {
 
     /** @var array */
