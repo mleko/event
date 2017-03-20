@@ -10,13 +10,14 @@ namespace Mleko\Narrator\Tests;
 use Mleko\Narrator\BasicEventBus;
 use Mleko\Narrator\EventNameExtractor\ClassNameExtractor;
 use Mleko\Narrator\Listener;
+use Mleko\Narrator\ListenerResolver\NameBasedResolver;
 use Mleko\Narrator\Meta;
 
 class BasicEventBusTest extends \PHPUnit\Framework\TestCase
 {
     public function testEmitterMutation()
     {
-        $eventBus = new BasicEventBus(new ClassNameExtractor());
+        $eventBus = new BasicEventBus(new NameBasedResolver(new ClassNameExtractor()));
         /** @var \PHPUnit_Framework_MockObject_MockObject|Listener $listener */
         $listener = $this->getMockBuilder(Listener::class)->getMockForAbstractClass();
 
@@ -48,7 +49,7 @@ class BasicEventBusTest extends \PHPUnit\Framework\TestCase
 
     public function testSubscription()
     {
-        $eventBus = new BasicEventBus(new ClassNameExtractor());
+        $eventBus = new BasicEventBus(new NameBasedResolver(new ClassNameExtractor()));
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|Listener $listener */
         $listener = $this->getMockBuilder(Listener::class)->getMockForAbstractClass();
@@ -71,10 +72,10 @@ class BasicEventBusTest extends \PHPUnit\Framework\TestCase
         $listener = $this->getMockBuilder(Listener::class)->getMockForAbstractClass();
 
         $eventBus = new BasicEventBus(
-            new ClassNameExtractor(),
+            new NameBasedResolver(new ClassNameExtractor()),
             [
                 'ArrayObject' => [$listener],
-                'Exception'   => [$listener]
+                'Exception' => [$listener]
             ]
         );
 

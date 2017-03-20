@@ -11,12 +11,13 @@ use Mleko\Narrator\BasicEventBus;
 use Mleko\Narrator\EventNameExtractor\ClassNameExtractor;
 use Mleko\Narrator\Listener;
 use Mleko\Narrator\Listener\OneTimeListener;
+use Mleko\Narrator\ListenerResolver\NameBasedResolver;
 
 class OneTimeListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testOneTimeListener()
     {
-        $eventBus = new BasicEventBus(new ClassNameExtractor());
+        $eventBus = new BasicEventBus(new NameBasedResolver(new ClassNameExtractor()));
 
         /** @var \PHPUnit_Framework_MockObject_MockObject|Listener $listener */
         $listener = $this->getMockBuilder(Listener::class)->getMockForAbstractClass();

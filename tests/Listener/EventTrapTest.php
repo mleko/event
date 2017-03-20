@@ -10,12 +10,13 @@ namespace Mleko\Narrator\Tests\Listener;
 use Mleko\Narrator\BasicEventBus;
 use Mleko\Narrator\EventNameExtractor\ClassNameExtractor;
 use Mleko\Narrator\Listener\EventTrap;
+use Mleko\Narrator\ListenerResolver\NameBasedResolver;
 
 class EventTrapTest extends \PHPUnit_Framework_TestCase
 {
     public function testMultipleEvents()
     {
-        $eventBus = new BasicEventBus(new ClassNameExtractor());
+        $eventBus = new BasicEventBus(new NameBasedResolver(new ClassNameExtractor()));
 
         $eventBus->subscribe('ArrayObject', $trap = new EventTrap(false));
 
@@ -29,7 +30,7 @@ class EventTrapTest extends \PHPUnit_Framework_TestCase
 
     public function testOneTimeTrap()
     {
-        $eventBus = new BasicEventBus(new ClassNameExtractor());
+        $eventBus = new BasicEventBus(new NameBasedResolver(new ClassNameExtractor()));
 
         $eventBus->subscribe('ArrayObject', $trap = new EventTrap());
 
@@ -43,7 +44,7 @@ class EventTrapTest extends \PHPUnit_Framework_TestCase
 
     public function testOneTimeTrapReRegistered()
     {
-        $eventBus = new BasicEventBus(new ClassNameExtractor());
+        $eventBus = new BasicEventBus(new NameBasedResolver(new ClassNameExtractor()));
 
         $eventBus->subscribe('ArrayObject', $trap = new EventTrap());
         $eventBus->subscribe('ArrayObject', $trap);

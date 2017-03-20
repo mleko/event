@@ -35,7 +35,7 @@ class UserRegisteredListener implements Listener {
 }
 
 // create EventBus which will be responsible for managing events and listeners
-$eventBus = new BasicEventBus(new ClassNameExtractor());
+$eventBus = new BasicEventBus(new NameBasedResolver(new ClassNameExtractor()));
 
 // create listener instance
 $listener = new UserRegisteredListener(...);

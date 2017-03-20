@@ -10,13 +10,14 @@ namespace Mleko\Narrator\Tests\Listener;
 use Mleko\Narrator\BasicEventBus;
 use Mleko\Narrator\EventNameExtractor\ClassNameExtractor;
 use Mleko\Narrator\Listener\CallableListener;
+use Mleko\Narrator\ListenerResolver\NameBasedResolver;
 use Mleko\Narrator\Meta;
 
 class CallableListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testClosure()
     {
-        $eventBus = new BasicEventBus(new ClassNameExtractor());
+        $eventBus = new BasicEventBus(new NameBasedResolver(new ClassNameExtractor()));
 
         $eventToEmit = new \ArrayObject();
 
@@ -33,7 +34,7 @@ class CallableListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testObjectMethod()
     {
-        $eventBus = new BasicEventBus(new ClassNameExtractor());
+        $eventBus = new BasicEventBus(new NameBasedResolver(new ClassNameExtractor()));
 
         $mock = $this->getMockBuilder('stdClass')->setMethods(['method'])->getMock();
         $eventBus->subscribe('ArrayObject', new CallableListener([$mock, 'method']));
