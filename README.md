@@ -1,4 +1,4 @@
-#narrator/narrator
+# narrator/narrator
 
 [![Travis CI](https://travis-ci.org/mleko/narrator.svg?branch=master)](https://travis-ci.org/mleko/narrator)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mleko/narrator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mleko/narrator/?branch=master)
@@ -8,7 +8,7 @@ Small and simple Event Bus library.
 
 Narrator allows communication between components without requiring the component to explicitly depend on each other.
 
-##Installation
+## Installation
 
 Using [Composer](http://getcomposer.org/):
 
@@ -16,7 +16,7 @@ Using [Composer](http://getcomposer.org/):
 $ composer require narrator/narrator
 ```
 
-##Basic usage
+## Basic usage
 
 ```php
 // Simple event object
@@ -48,7 +48,7 @@ $event = new UserRegistered(...);
 $eventBus->emit($event);
 ```
 
-##Testing
+## Testing
 To run unit tests use PHPUnit
 ```
 $ ./vendor/bin/phpunit
